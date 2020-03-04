@@ -103,11 +103,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      *
      */
-    private void ctrEth(boolean enable) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static void ctrEth(boolean enable) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method;
         Class<?> EthernetManager = Class.forName("android.net.ethernet.EthernetManager");
         Object mEthManager = EthernetManager.getMethod("getInstance")
                 .invoke(EthernetManager);
+
+
+        method = mEthManager.getClass().getMethod("getState");
+        method.invoke(mEthManager);
+
         method = mEthManager.getClass().getMethod("setEnabled",boolean.class);
         method.invoke(mEthManager,enable);
     }
